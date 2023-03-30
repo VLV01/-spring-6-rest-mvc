@@ -43,6 +43,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void updateCustomerById(UUID customerId, Customer customer) {
+        Customer existing = customerMap.get(customerId);
+        existing.setName(customer.getName());
+    }
+
+    @Override
     public Customer getCustomerById(UUID uuid) {
         return customerMap.get(uuid);
     }
@@ -68,4 +74,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     }
+
+
 }
