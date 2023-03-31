@@ -59,6 +59,12 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
+    public void deleteById(UUID beerId) {
+        beerMap.remove(beerId);
+
+    }
+
+    @Override
     public List<Beer> listBeers() {
         return new ArrayList<>(beerMap.values());
     }
@@ -98,4 +104,6 @@ public class BeerServiceImpl implements BeerService {
         existing.setUpc(beer.getUpc());
         existing.setQuantityOnHand(beer.getQuantityOnHand());
     }
+
+
 }
