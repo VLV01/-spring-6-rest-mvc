@@ -1,6 +1,7 @@
 package vlv.springframework.spring6restmvc.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import vlv.springframework.spring6restmvc.model.Customer;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,13 @@ import java.util.*;
 public class CustomerServiceImpl implements CustomerService {
 
     private Map<UUID, Customer> customerMap;
+    @Override
+    public void patchCustomerById(UUID customerId, Customer customer) {
+        Customer existing = customerMap.get(customerId);
+        if (StringUtils.hasText(customer.getName())) {
+            existing.setName(customer.getName());
+        }
+    }
 
     public CustomerServiceImpl() {
         Customer customer1 = Customer.builder()
@@ -46,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteById(UUID customerId) {
         customerMap.remove(customerId);
     }
+
 
     @Override
     public void updateCustomerById(UUID customerId, Customer customer) {

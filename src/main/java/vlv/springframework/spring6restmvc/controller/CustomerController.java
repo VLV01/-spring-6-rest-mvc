@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vlv.springframework.spring6restmvc.model.Beer;
 import vlv.springframework.spring6restmvc.model.Customer;
 import vlv.springframework.spring6restmvc.services.CustomerService;
 
@@ -20,6 +21,12 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @PatchMapping("{customerId}")
+    public ResponseEntity updateCustomerPatchById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
+        customerService.patchCustomerById(customerId, customer);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping("{customerId}")
     public ResponseEntity deleteById(@PathVariable("customerId") UUID customerId) {
         customerService.deleteById(customerId);
@@ -29,7 +36,6 @@ public class CustomerController {
     @PutMapping("{customerId}")
     public ResponseEntity updateCustomerById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
         customerService.updateCustomerById(customerId, customer);
-
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
