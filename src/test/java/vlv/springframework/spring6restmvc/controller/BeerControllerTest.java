@@ -25,6 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static vlv.springframework.spring6restmvc.controller.BeerController.BEER_PATH;
+import static vlv.springframework.spring6restmvc.controller.BeerController.BEER_PATH_ID;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -127,6 +128,14 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.length()", is(3)));
+    }
+
+    @Test
+    void getBeerByIdNotFound() throws Exception {
+
+        given(beerService.getBeerById(any(UUID.class))).willThrow(NotFoundException.class);
+        mockMvc.perform(get(BEER_PATH_ID, UUID.randomUUID()))
+                .andExpect(status().isNotFound());
     }
 
     @Test
