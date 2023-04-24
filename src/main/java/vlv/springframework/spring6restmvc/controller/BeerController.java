@@ -62,7 +62,6 @@ public class BeerController {
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity handleNotFoundException() {
-        System.out.println("In exception handler");
         return ResponseEntity.notFound().build();
     }
 
