@@ -1,6 +1,8 @@
 package vlv.springframework.spring6restmvc.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import lombok.*;
 import vlv.springframework.spring6restmvc.model.BeerStyle;
 
@@ -15,7 +17,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Beer {
+
+    @Id
     private UUID id;
+
+    @Version
     private Integer version;
     private String beerName;
     private BeerStyle beerStyle;
