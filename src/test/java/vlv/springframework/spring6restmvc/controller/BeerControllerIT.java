@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import vlv.springframework.spring6restmvc.entities.Beer;
+import vlv.springframework.spring6restmvc.mappers.BeerMapper;
 import vlv.springframework.spring6restmvc.model.BeerDTO;
 import vlv.springframework.spring6restmvc.repositories.BeerRepository;
 
@@ -25,6 +26,25 @@ class BeerControllerIT {
     BeerController beerController;
     @Autowired
     BeerRepository beerRepository;
+
+    @Autowired
+    BeerMapper beerMapper;
+
+    @Test
+    void updateExistingBeer() {
+        Beer beer = beerRepository.findAll().get(0);
+        BeerDTO beerDTO = beerMapper.beerToBeerDto(beer);
+        beerDTO.setId(null);
+        beerDTO.setVersion(null);
+        final String beerName = "UPDATED";
+        beerDTO.setBeerName(beerName);
+
+        ResponseEntity responseEntity = beerController.updateById(beer.getId(), beerDTO);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.valueOf(204));
+
+        Beer updateeBeer = beerRepository.findById(beer.getId()).get();
+        assertThat(updateeBeer.getBeerName()).isEqualTo(beerName);
+    }
 
     @Rollback
     @Transactional
