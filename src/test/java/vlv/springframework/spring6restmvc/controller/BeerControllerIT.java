@@ -46,9 +46,9 @@ class BeerControllerIT {
     }
 
     @Test
-    void testUpdateNotFound() {
+    void testDeleteByIdNotFound() {
         assertThrows(NotFoundException.class, () -> {
-           beerController.updateById(UUID.randomUUID(), BeerDTO.builder().build());
+           beerController.deleteById(UUID.randomUUID());
         });
     }
 
