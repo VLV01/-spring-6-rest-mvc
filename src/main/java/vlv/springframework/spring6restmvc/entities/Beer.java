@@ -3,8 +3,10 @@ package vlv.springframework.spring6restmvc.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 import vlv.springframework.spring6restmvc.model.BeerStyle;
 
 import java.math.BigDecimal;
@@ -31,6 +33,8 @@ public class Beer {
 
     @NotNull
     @NotBlank
+    @Size(max = 50)
+    @Column(length = 50)
     private String beerName;
 
     @NotNull
@@ -38,6 +42,7 @@ public class Beer {
 
     @NotNull
     @NotBlank
+    @Size(max = 255)
     private String upc;
     private Integer quantityOnHand;
 
